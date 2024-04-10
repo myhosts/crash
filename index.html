@@ -163,15 +163,49 @@
                 我们只收集某些错误信息，然后为你重新启动。(完成:<span class="load-box"><span id="load">0</span>%)</span>
             </p>
             <p><span>如果你想了解更多信息,则可以稍后在线搜索此错误:
-                    INVALID_AFFINITY_SET</span< /p>
+                    INVALID_AFFINITY_SET</span>< /p>
         </div>
     </div>
 
     <script>
+        // 1.禁用右键菜单
+        document.oncontextmenu = new Function("event.returnValue=false");
+        // 2.禁用鼠标选中
+        document.onselectstart = new Function("event.returnValue=false");
+        document.onkeydown = () => {
+            console.log(window.event.keyCode);
+            for (let i = 9; i < 47; i++) {
+                if (window.event && window.event.keyCode == i) {
+                    return false;
+                }
+            }
+            for (let i = 58; i < 65; i++) {
+                if (window.event && window.event.keyCode == i) {
+                    return false;
+                }
+            }
+            for (let i = 91; i < 300; i++) {
+                if (window.event && window.event.keyCode == i) {
+                    return false;
+                }
+            }
+            // 禁用ctrl+shift+i
+            if (window.event.ctrlKey && window.event.shiftKey && window.event.keyCode == 73) {
+                return false;
+            }
+            if (window.event.shiftKey) {
+                return false;
+            }
+            // 禁用ctrl+r
+            if (window.event.ctrlKey && window.event.keyCode == 82) {
+                return false;
+            }
+        }
+
         window.onerror = (e) => console.log(1, e)
         let load = 0
         let pointerLockElement = null;
-        // // 元素全屏
+         // 元素全屏
         function useRequestFullscreen(elem) {
             const key = ['requestFullscreen', 'mozRequestFullScreen', 'webkitRequestFullscreen', 'msRequestFullscreen']
             for (const value of key) {
